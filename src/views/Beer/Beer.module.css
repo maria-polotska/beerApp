@@ -1,0 +1,9 @@
+.productImg {
+    min-width: 250px;
+    height: auto;
+}
+
+.productImg img {
+    display: block;
+    width: 100%;
+}
