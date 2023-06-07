@@ -22,9 +22,11 @@ const Home = () => {
 
   const handleChecked = (beer: Beer) => {
     if (isChecked(beer)) {
-      setSavedList(savedList.filter(item => item.id !== beer.id));
+      setSavedList(currentList =>
+        currentList.filter(item => item.id !== beer.id)
+      );
     } else {
-      setSavedList([...savedList, beer]);
+      setSavedList(currentList => [...currentList, beer]);
     }
   };
 

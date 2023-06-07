@@ -43,21 +43,21 @@ const BeerList = () => {
   const [sortDirection, setSortDirection] = useState<boolean>(true);
 
   const sortListHandler = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    direction: boolean
   ) => {
-    e.preventDefault();
-    setSortDirection(prevSortDirection => !prevSortDirection);
+    event.preventDefault();
 
     const sortedList = [...beerList].sort((a, b) => {
-      if (a.name.toLowerCase() < b.name.toLowerCase()) {
-        return sortDirection ? 1 : -1;
-      }
       if (a.name.toLowerCase() > b.name.toLowerCase()) {
-        return sortDirection ? -1 : 1;
+        return direction ? 1 : -1;
+      }
+      if (a.name.toLowerCase() < b.name.toLowerCase()) {
+        return direction ? -1 : 1;
       }
       return 0;
     });
-
+    setSortDirection(direction);
     setBeerList(sortedList);
   };
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
@@ -74,7 +74,7 @@ const BeerList = () => {
           <Stack direction="row" alignItems="center" spacing={2}>
             <Button
               variant="outlined"
-              onClick={e => sortListHandler(e)}
+              onClick={e => sortListHandler(e, !sortDirection)}
               startIcon={
                 sortDirection ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />
               }
